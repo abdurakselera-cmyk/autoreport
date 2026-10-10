@@ -6,7 +6,7 @@ bisa bergeser.
 ## Struktur per minggu
 
 ```
-<b>Senin, D Bulan YYYY - Sabtu, D Bulan YYYY</b>        ← paragraf tebal di atas tabel
+Senin, D Bulan YYYY - Sabtu, D Bulan YYYY          ← Heading 3 di atas tabel (masuk outline)
 ┌──────────────────────────────────────────────┐
 │                   Abdur (H2, colspan 2)      │
 ├───────────────┬──────────────────────────────┤
@@ -18,6 +18,8 @@ bisa bergeser.
 │ Pertanyaan    │ (biasanya kosong)            │
 └───────────────┴──────────────────────────────┘
 ```
+
+Tabel: kolom label 147,8pt, kolom isi 320,2pt (total 468pt), garis hitam 1pt. "Abdur" = Heading 2, nama hari = Heading 4.
 
 Judul doc "WORK WEEKLY JOURNAL - ABDUR" hanya ada sekali di paling atas; jangan diulang.
 

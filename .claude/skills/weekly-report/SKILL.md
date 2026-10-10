@@ -52,6 +52,8 @@ Catatan data:
 - Perbaiki typo nama brand (mis. "Edusmo" → "Eduosmo", "Kramak" → "Krama").
 
 ### 4. Lengkapi hari yang belum ada report-nya
+Kalau user menempelkan laporan harian (biasanya Sabtu) di chat, itu **sumber utama** untuk hari tersebut — pakai
+status dan catatan pengiriman (ke Kak Bowo/Kak Zidan, dll.) persis seperti tertulis. Kalau tidak ada:
 Sabtu sore biasanya baru ada Plan. Ambil pekerjaan hari itu dari `drive_report_dir/<YYYY-MM-DD>/` (subfolder
 `LunaEngine/` dan file `Laporan-Harian-Creative-Maker_*.md`): baca frontmatter `judul`/`ringkas` dan bagian
 "Perlu diputuskan". Status DRAF / menunggu keputusan = **On Process**. Laporan Drive dari hari lain yang tidak ada di
@@ -71,16 +73,26 @@ Hasil: `Weekly-Report_<mulai>_<selesai>.html` (blok `#paste` = judul periode + t
 Ringkasan (Total/Selesai/On Process) dihitung otomatis dari kategori `progres`.
 
 ### 6. Isi ke Google Doc journal
-Doc harus dibuka oleh akun yang punya **akses edit** (kalau muncul tombol "Minta akses edit", berhenti dan minta user
-login dengan akun pemilik/editor atau memberi akses edit; jangan klik "Minta akses").
+Doc harus dibuka oleh akun yang punya **akses edit**. Cek: tidak ada label "Minta akses edit" dan menubar punya
+"Sisipkan"/"Format". Kalau masih view-only, berhenti dan minta user memberi akses Editor (akun Abdur:
+abdur.akselera@gmail.com) atau login dengan akun editor; jangan klik "Minta akses".
 
-1. `browser_navigate` ke `https://docs.google.com/document/d/<ID>/edit`.
-2. Buka HTML hasil render di tab baru (`file:///...html`), salin blok `#paste` sebagai rich text:
-   `browser_evaluate` → `const r=document.createRange(); r.selectNode(document.getElementById('paste')); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand('copy')`.
-3. Kembali ke tab doc, klik area dokumen, tekan `Control+End` (ke paling bawah, di luar tabel minggu terakhir), tekan
-   `Enter` dua kali, lalu `Control+V`.
-4. Verifikasi: ekspor ulang `format=txt` dan pastikan heading periode baru + baris "Ringkasan" muncul tepat sekali di
-   akhir doc dan minggu-minggu sebelumnya tidak berubah. Ambil screenshot bagian akhir untuk dicek user.
+Prosedur yang sudah terbukti jalan (10 Okt 2026):
+1. Simpan pembanding: ekspor `format=txt` ke scratchpad (`before.txt`).
+2. Playwright memblokir `file://`, jadi sajikan folder output lewat server lokal (background):
+   `python -m http.server 8765 --bind 127.0.0.1` (cwd = folder output minggu itu). Buka
+   `http://127.0.0.1:8765/Weekly-Report_<mulai>_<selesai>.html` di tab baru (`browser_tabs` new).
+3. Di tab HTML: `browser_evaluate` untuk memilih blok `#paste`
+   (`const r=document.createRange(); r.selectNode(document.getElementById('paste')); getSelection().removeAllRanges(); getSelection().addRange(r);`),
+   lalu tekan tombol sungguhan `Control+c` (`browser_press_key`).
+4. Pindah ke tab doc (`browser_tabs` select), klik `.kix-appview-editor`, tekan `Control+End` (kursor jatuh di paragraf
+   kosong di bawah tabel minggu terakhir), `Enter`, lalu `Control+V`. Tunggu sampai status "Disimpan ke Drive".
+5. Samakan tampilan tabel bila perlu: klik kanan di dalam tabel baru → **Opsi tabel** → **Kolom**: kursor di kolom label =
+   **5,21 cm**, kolom isi = **11,3 cm** (147,8pt / 320,2pt); **Warna** → Batas tabel **Hitam**, lebar **1 poin**. Tutup panel.
+   (Pindah kolom: klik sel label "Kendala" dengan `page.mouse.click` lewat `browser_run_code_unsafe`.)
+6. Verifikasi: ekspor ulang `format=txt` dan `format=html`. Syarat: teks lama adalah prefiks utuh dari teks baru
+   (`after.startswith(before.rstrip())`), heading periode baru (Heading 3) muncul tepat sekali, "Total Task: N" cocok, dan
+   lebar kolom tabel terakhir ≈ 147,8pt/320,2pt dengan batas `#000000`. Matikan server lokal setelah selesai.
 
 ### 7. Laporkan ke user
 Sebutkan: periode, jumlah task (selesai/on process), sumber yang dipakai untuk hari tanpa report, item plan yang tidak

@@ -118,19 +118,21 @@ def render_html(data):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly Journal {nama}</title>
 <style>
-:root {{ --bg:#fff; --fg:#1f1f1f; --line:#9e9e9e; --muted:#5f6368; --link:#1155cc; }}
+:root {{ --bg:#fff; --fg:#1f1f1f; --line:#000; --muted:#5f6368; --link:#1155cc; }}
 @media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ --bg:#1e1e1e; --fg:#e8e8e8; --line:#5f6368; --muted:#aaa; --link:#8ab4f8; }} }}
 body {{ background:var(--bg); color:var(--fg); font:11pt/1.5 Arial, sans-serif; max-width:960px; margin:24px auto; padding:0 16px; }}
-table {{ border-collapse:collapse; width:100%; table-layout:fixed; }}
-td {{ border:1px solid var(--line); padding:8px 10px; vertical-align:top; overflow-wrap:anywhere; }}
-td.lbl {{ width:120px; font-weight:bold; }}
-h1 {{ font-size:18pt; }} h2 {{ font-size:14pt; margin:0; }} h4 {{ margin:12px 0 4px; }}
+/* Ukuran & garis disamakan dengan tabel minggu sebelumnya di Google Doc: 147,8pt + 320,2pt, garis hitam 1pt */
+table {{ border-collapse:collapse; width:468pt; max-width:100%; table-layout:fixed; }}
+td {{ border:1pt solid var(--line); padding:5pt; vertical-align:top; overflow-wrap:anywhere; }}
+td.lbl {{ width:147.8pt; font-weight:bold; }}
+h1 {{ font-size:18pt; }} h3 {{ font-size:13pt; }} h2 {{ font-size:14pt; margin:0; }} h4 {{ margin:12px 0 4px; }}
 a {{ color:var(--link); }} .hint {{ color:var(--muted); font-size:9pt; }}
 </style></head><body>
 <p class="hint">Tips: Ctrl+A lalu Ctrl+C, tempel ke Google Doc "WORK WEEKLY JOURNAL" di bawah minggu terakhir.</p>
 <div id="paste">
-<p><b>{periode}</b></p>
+<h3>{periode}</h3>
 <table>
+<colgroup><col style="width:147.8pt"><col style="width:320.2pt"></colgroup>
 <tr><td colspan="2"><h2>{esc(nama)}</h2></td></tr>
 {row("Pekerjaan", "".join(pk))}
 {row("Hasil pekerjaan", "".join(hs))}
