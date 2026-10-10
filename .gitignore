@@ -1,0 +1,6 @@
+# Data kerja & hasil laporan (berisi link internal) — jangan di-push, repo publik
+output/
+config.local.json
+.playwright-mcp/
+*.png
+__pycache__/
