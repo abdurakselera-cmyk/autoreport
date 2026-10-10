@@ -19,7 +19,8 @@ Senin, D Bulan YYYY - Sabtu, D Bulan YYYY          ← Heading 3 di atas tabel (
 └───────────────┴──────────────────────────────┘
 ```
 
-Tabel: kolom label 147,8pt, kolom isi 320,2pt (total 468pt), garis hitam 1pt. "Abdur" = Heading 2, nama hari = Heading 4.
+Tabel: baris "Abdur" rata tengah 17pt tebal; label kolom kiri 12pt tebal; Pekerjaan: judul tugas 12pt tebal,
+sub-bullet ○ label tebal + isi 12pt, daftar link ■. Kolom label 147,8pt, kolom isi 320,2pt (total 468pt), garis hitam 1pt. "Abdur" = Heading 2, nama hari = Heading 4.
 
 Judul doc "WORK WEEKLY JOURNAL - ABDUR" hanya ada sekali di paling atas; jangan diulang.
 
@@ -33,7 +34,8 @@ Judul doc "WORK WEEKLY JOURNAL - ABDUR" hanya ada sekali di paling atas; jangan 
 - Sebut alat yang dipakai jika ada: Claude Luna, Claude Code, Creative Maker, CapCut, Adobe Lightroom.
 
 ## Hasil pekerjaan
-- Tepat 5 sorotan, bernomor, judul tebal, dipisah garis `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`.
+- Tepat 5 sorotan. Tiap sorotan = item daftar bernomor (judul, 11pt normal) lalu satu paragraf. **Tanpa** garis ━━━
+  (format minggu terakhir; minggu 14–19 Sep masih memakai garis, jangan ditiru).
 - Tiap sorotan 1 paragraf (3–5 kalimat) yang menggabungkan beberapa task lintas hari, menyebut hari & tanggal dalam
   kurung `(Senin, 5 Okt)` atau `Pada Rabu (7 Okt)`, angka total (jumlah video/konten/brand), dan status akhir
   (di-acc, siap tayang, menunggu review).
@@ -43,7 +45,8 @@ Judul doc "WORK WEEKLY JOURNAL - ABDUR" hanya ada sekali di paling atas; jangan 
 - Kategori huruf `A.`, `B.`, … dengan jumlah task: `A. Produksi Stok Konten Motion – Creative Maker (2 task)`.
 - Nomor task **berlanjut** lintas kategori (1…N), format `N. Judul – Detail (5 Okt)` atau rentang `(6–7 Okt)`.
 - Di bawah tiap task: baris `Link …:`, `Detail:`, `Status: Selesai — …`, `Tujuan: …` (pakai em dash `—`).
-- Kategori dipisah garis `━━━`.
+- Kategori berupa paragraf biasa (11pt), **tanpa** garis ━━━. Tiap task = satu item bernomor; baris Link/Detail/
+  Status/Tujuan dipisah line break di dalam item yang sama. Item berurutan rapat (tanpa jarak).
 - Kategori terakhir yang selesai selalu `Administrasi (1 task)` → `Penyusunan & Pengiriman Laporan Mingguan – Weekly
   Report (Sabtu)`, `Status: Selesai`.
 - Task yang belum selesai dikumpulkan di bawah judul `DALAM PROSES (On Process)` dengan kategori sendiri.

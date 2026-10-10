@@ -77,22 +77,26 @@ Doc harus dibuka oleh akun yang punya **akses edit**. Cek: tidak ada label "Mint
 "Sisipkan"/"Format". Kalau masih view-only, berhenti dan minta user memberi akses Editor (akun Abdur:
 abdur.akselera@gmail.com) atau login dengan akun editor; jangan klik "Minta akses".
 
-Prosedur yang sudah terbukti jalan (10 Okt 2026):
+Prosedur yang sudah terbukti jalan (10 Okt 2026). Semua langkah browser bisa digabung dalam satu
+`browser_run_code_unsafe` (lihat `scripts/fill_doc.js`, ganti konstanta di atasnya):
 1. Simpan pembanding: ekspor `format=txt` ke scratchpad (`before.txt`).
 2. Playwright memblokir `file://`, jadi sajikan folder output lewat server lokal (background):
-   `python -m http.server 8765 --bind 127.0.0.1` (cwd = folder output minggu itu). Buka
-   `http://127.0.0.1:8765/Weekly-Report_<mulai>_<selesai>.html` di tab baru (`browser_tabs` new).
-3. Di tab HTML: `browser_evaluate` untuk memilih blok `#paste`
-   (`const r=document.createRange(); r.selectNode(document.getElementById('paste')); getSelection().removeAllRanges(); getSelection().addRange(r);`),
-   lalu tekan tombol sungguhan `Control+c` (`browser_press_key`).
-4. Pindah ke tab doc (`browser_tabs` select), klik `.kix-appview-editor`, tekan `Control+End` (kursor jatuh di paragraf
-   kosong di bawah tabel minggu terakhir), `Enter`, lalu `Control+V`. Tunggu sampai status "Disimpan ke Drive".
-5. Samakan tampilan tabel bila perlu: klik kanan di dalam tabel baru → **Opsi tabel** → **Kolom**: kursor di kolom label =
-   **5,21 cm**, kolom isi = **11,3 cm** (147,8pt / 320,2pt); **Warna** → Batas tabel **Hitam**, lebar **1 poin**. Tutup panel.
-   (Pindah kolom: klik sel label "Kendala" dengan `page.mouse.click` lewat `browser_run_code_unsafe`.)
-6. Verifikasi: ekspor ulang `format=txt` dan `format=html`. Syarat: teks lama adalah prefiks utuh dari teks baru
-   (`after.startswith(before.rstrip())`), heading periode baru (Heading 3) muncul tepat sekali, "Total Task: N" cocok, dan
-   lebar kolom tabel terakhir ≈ 147,8pt/320,2pt dengan batas `#000000`. Matikan server lokal setelah selesai.
+   `python -m http.server 8765 --bind 127.0.0.1` (cwd = folder output minggu itu).
+3. Kalau minggu yang sama sudah ada di doc (mis. perlu diperbaiki), hapus dulu: klik judul periodenya di outline,
+   `Home`, `Control+Shift+End`, `Backspace`. Pastikan export txt kembali sama persis dengan sebelum diisi.
+4. Buka halaman HTML di tab baru dengan viewport lebar (≥1400px, agar tabel dirender pas 468pt), pilih blok `#paste`
+   (Range + Selection), tekan tombol sungguhan `Control+c`, tutup tab.
+5. Di tab doc: klik `.kix-appview-editor`, `Control+End`, `Control+V`. Tunggu "Disimpan ke Drive".
+6. **Wajib dirapikan setelah tempel** (Docs mengubah dua hal ini saat menempel):
+   - Pilih seluruh tabel baru: klik "Abdur" (outline, `.last()`), `Home`, `Control+Shift+End`, `Shift+ArrowLeft` →
+     Format → Tabel → **Opsi tabel** → **Baris**: matikan "Ketinggian baris minimum" (kalau tidak, baris Pekerjaan
+     terlempar ke halaman baru dan menyisakan ruang kosong); **Warna**: Batas tabel hitam, **1 poin**.
+   - **Kolom**: kursor di kolom isi (klik hari terakhir di outline) = **11,3 cm**; lalu klik sel kolom label
+     (`page.mouse.click` di area kolom kiri) = **5,21 cm**. Tutup panel.
+7. Verifikasi: ekspor ulang `format=txt` + `format=html`. Syarat: teks lama adalah prefiks utuh dari teks baru,
+   judul periode muncul sekali, "Total Task: N" cocok, tabel terakhir ≈ 147,8pt/320,2pt, garis 1pt `#000000`, semua
+   tinggi baris 0pt. Ambil screenshot atas tabel, Hasil pekerjaan, dan Progres, bandingkan dengan minggu sebelumnya.
+   Matikan server lokal setelah selesai.
 
 ### 7. Laporkan ke user
 Sebutkan: periode, jumlah task (selesai/on process), sumber yang dipakai untuk hari tanpa report, item plan yang tidak
